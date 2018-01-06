@@ -73,9 +73,12 @@ if __name__ == '__main__':
         time.sleep(10)
     """
     
-    weights_filename = os.path.splitext(os.path.basename(args.model))[0]
+    #weights_filename = os.path.splitext(os.path.basename(args.model))[0]
 
-    print 
+    #print "W_F: ", weights_filename
+    #print "W_F_2: ", os.path.splitext(os.path.basename(args.model))[1]
+    #print "basename MODEL: ", (os.path.basename(args.model))
+    #print "MODEL: ", args.model
 
 
     imdb = get_imdb(args.imdb_name)
@@ -83,20 +86,24 @@ if __name__ == '__main__':
 
 
     # Find the checkpoint directory, or wait until it exists.
-    checkpoint_dir = os.path.dirname(args.model)
-    while True:
-        ckpt = tf.train.get_checkpoint_state(checkpoint_dir)
-        if ckpt and ckpt.model_checkpoint_path:
-            break
-        else:
-            print('Waiting for checkpoint in directory {} to exist...'.format(checkpoint_dir))
-            time.sleep(10)
+    #checkpoint_dir = os.path.dirname(args.model)
+    #checkpoint_dir = "/home/ubuntu/Tensorflow-Faster-RCNN/output/faster_rcnn_end2end/voc_2007_trainval"
+
+    #print "checkpoint_dir: ", checkpoint_dir
+
+    #ckpt = tf.train.get_checkpoint_state(checkpoint_dir)
+    #print "ckpt: ", ckpt
+    #print "ckpt model_checkpoint_path: ", ckpt.model_checkpoint_path
+
+    #if ckpt is None or ckpt.model_checkpoint_path is None:
+    #    raise RuntimeError('Waiting for checkpoint in directory {} to exist...'.format(checkpoint_dir))
 
     device_name = '/{}:{:d}'.format(args.device,args.device_id)
     print device_name
 
     network = get_network(args.network_name)
     print 'Use network `{:s}` in training'.format(args.network_name)
+    
 
     if args.device == 'gpu':
         cfg.USE_GPU_NMS = True
@@ -110,7 +117,7 @@ if __name__ == '__main__':
     #saver.restore(sess, args.model)
     #print ('Loading model weights from {:s}').format(args.model)
 
-    saver.restore(sess, ckpt.model_checkpoint_path)
-    print ('Loading model weights from {:s}').format(ckpt.model_checkpoint_path)
+    saver.restore(sess, "/home/ubuntu/Tensorflow-Faster-RCNN/output/faster_rcnn_end2end/voc_2007_trainval/VGGnet_fast_rcnn_iter_70000.ckpt")
+    #print ('Loading model weights from {:s}').format(ckpt.model_checkpoint_path)
 
-    test_net(sess, network, imdb, weights_filename)
+    test_net(sess, network, imdb, "VGGnet_fast_rcnn_iter_70000")
