@@ -158,7 +158,7 @@ if __name__ == '__main__':
     plt.show()
     """
 
-    cap = cv2.VideoCapture('/home/ubuntu/Videos/road/seq06_v001.mp4')
+    cap = cv2.VideoCapture('/home/ubuntu/Videos/road/seq09_v009.mp4')
     cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
 
     while(cap.isOpened()):

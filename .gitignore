@@ -1,4 +1,5 @@
 /data
 /output
+/output_backup
 *.jpg
 *.png
